@@ -1,6 +1,10 @@
 import discord
 import openai
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Set up the Discord client
 client = discord.Client()
@@ -12,7 +16,7 @@ openai.api_key = os.environ.get("OPENAI_API_KEY")
 def generate_response(prompt):
     # Set up the GPT-3 parameters
     model_engine = "davinci" # Or any other GPT-3 engine you have access to
-    prompt = f"Hi there! How can I assist you today?\nUser: {prompt}\nAI:"
+    prompt = f"{prompt}\nAI:"
 
     # Call the OpenAI API to generate a response
     response = openai.Completion.create(
@@ -44,4 +48,4 @@ async def on_message(message):
     await message.channel.send(response)
 
 # Run the Discord client
-client.run("<your Discord bot token>")
+client.run(os.environ.get("DISCORD_TOKEN"))
