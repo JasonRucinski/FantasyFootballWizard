@@ -12,7 +12,7 @@ openai.api_key = os.environ.get("OPENAI_API_KEY")
 def generate_response(prompt):
     # Set up the GPT-3 parameters
     model_engine = "davinci" # Or any other GPT-3 engine you have access to
-    prompt = f"{prompt}\nAI:"
+    prompt = f"Hi there! How can I assist you today?\nUser: {prompt}\nAI:"
 
     # Call the OpenAI API to generate a response
     response = openai.Completion.create(
