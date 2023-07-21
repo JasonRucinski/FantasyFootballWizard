@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from gamedaybot.espn.functionality import *
+from FantasyFootballWizard.main import functions.py
 import openai
 import os
 from dotenv import load_dotenv
