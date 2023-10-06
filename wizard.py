@@ -8,17 +8,21 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
+# Get league data from environment variables
+LEAGUE_ID = os.environ.get("LEAGUE_ID")
+if LEAGUE_ID is None:
+    raise ValueError("Missing LEAGUE_ID in .env file")
+
 # Set up the OpenAI API key
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 bot = commands.Bot(command_prefix='!')
 
-
 # Define a function to handle Discord messages
-@client.event
+@bot.event  # Changed from @client.event
 async def on_message(message):
     # Ignore messages from the bot itself
-    if message.author == client.user:
+    if message.author == bot.user:  # Changed from client.user
         return
 
   import discord
@@ -29,22 +33,22 @@ bot = commands.Bot(command_prefix='!')
 
 @bot.command(aliases=['gs'])
 async def get_scoreboard(ctx):
-    result = get_scoreboard_short(league, week=None)
+    result = get_scoreboard_short(LEAGUE_ID, week=None)
     await ctx.send(result)
 
 @bot.command(aliases=[])
 async def get_projected_scoreboard(ctx):
-    result = get_projected_scoreboard(league, week=None)
+    result = get_projected_scoreboard(LEAGUE_ID, week=None)
     await ctx.send(result)
 
 @bot.command(aliases=[])
 async def get_standings(ctx):
-    result = get_standings(league, top_half_scoring=False, week=None)
+    result = get_standings(LEAGUE_ID, top_half_scoring=False, week=None)
     await ctx.send(result)
 
 @bot.command(aliases=[])
 async def top_half_wins(ctx):
-    result = top_half_wins(league, top_half_totals, week)
+    result = top_half_wins(LEAGUE_ID, top_half_totals, week)
     await ctx.send(result)
 
 @bot.command(aliases=[])
@@ -59,7 +63,7 @@ async def all_played(ctx):
 
 @bot.command(aliases=[])
 async def get_monitor(ctx):
-    result = get_monitor(league)
+    result = get_monitor(LEAGUE_ID)
     await ctx.send(result)
 
 @bot.command(aliases=[])
@@ -69,27 +73,27 @@ async def scan_roster(ctx):
 
 @bot.command(aliases=[])
 async def get_matchups(ctx):
-    result = get_matchups(league, random_phrase=False, week=None)
+    result = get_matchups(LEAGUE_ID, random_phrase=False, week=None)
     await ctx.send(result)
 
 @bot.command(aliases=[])
 async def get_close_scores(ctx):
-    result = get_close_scores(league, week=None)
+    result = get_close_scores(LEAGUE_ID, week=None)
     await ctx.send(result)
 
 @bot.command(aliases=[])
 async def get_waiver_report(ctx):
-    result = get_waiver_report(league, faab=False)
+    result = get_waiver_report(LEAGUE_ID, faab=False)
     await ctx.send(result)
 
 @bot.command(aliases=[])
 async def get_power_rankings(ctx):
-    result = get_power_rankings(league, week=None)
+    result = get_power_rankings(LEAGUE_ID, week=None)
     await ctx.send(result)
 
 @bot.command(aliases=[])
 async def get_starter_counts(ctx):
-    result = get_starter_counts(league)
+    result = get_starter_counts(LEAGUE_ID)
     await ctx.send(result)
 
 @bot.command(aliases=[])
@@ -104,22 +108,22 @@ async def optimal_lineup_score(ctx):
 
 @bot.command(aliases=[])
 async def optimal_team_scores(ctx):
-    result = optimal_team_scores(league, week=None, full_report=False)
+    result = optimal_team_scores(LEAGUE_ID, week=None, full_report=False)
     await ctx.send(result)
 
 @bot.command(aliases=[])
 async def get_achievers_trophy(ctx):
-    result = get_achievers_trophy(league, week=None)
+    result = get_achievers_trophy(LEAGUE_ID, week=None)
     await ctx.send(result)
 
 @bot.command(aliases=[])
 async def get_lucky_trophy(ctx):
-    result = get_lucky_trophy(league, week=None)
+    result = get_lucky_trophy(LEAGUE_ID, week=None)
     await ctx.send(result)
 
 @bot.command(aliases=[])
 async def get_trophies(ctx):
-    result = get_trophies(league, week=None)
+    result = get_trophies(LEAGUE_ID, week=None)
     await ctx.send(result)
     
 @bot.event
