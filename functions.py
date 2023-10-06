@@ -1,4 +1,13 @@
+import os
+from dotenv import load_dotenv
 from datetime import date
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Get league data from environment variables
+LEAGUE_ID = os.environ.get("LEAGUE_ID")
+LEAGUE_NAME = os.environ.get("LEAGUE_NAME")
 
 def get_scoreboard_short(league, week=None):
     # Gets current week's scoreboard
